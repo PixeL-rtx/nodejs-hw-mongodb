@@ -36,7 +36,7 @@ export function setupServer() {
     if (!contact) {
       res.status(404).json({
         status: 404,
-        message: 'Contact not found',
+        message: 'Contact not found!',
       });
       return;
     }
@@ -46,12 +46,16 @@ export function setupServer() {
       data: contact,
     });
   });
+  app.use('*', (req, res) => {
+    res.status(404).json({
+      message: 'Not found',
+    });
+  });
 
   app.use((req, res, next) => {
-    const url = req.url;
-    res.status(404).json({
+    res.status(500).json({
       status: 404,
-      message: 'Route ${url} Not Found',
+      message: 'Something went wrong',
     });
   });
   app.listen(PORT, () => {

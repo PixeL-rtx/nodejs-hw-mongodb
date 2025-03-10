@@ -7,7 +7,7 @@ import {
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
 
-export const getContactsController = async (req, res, next) => {
+export const getContactsController = async (req, res) => {
   try {
     const contacts = await getAllContacts();
     res.json({
@@ -15,12 +15,12 @@ export const getContactsController = async (req, res, next) => {
       message: 'Successfully found contacts!',
       data: contacts,
     });
-  } catch (error) {
-    next(error);
+  } catch {
+    throw createHttpError(404, 'Contact not found');
   }
 };
 
-export const getContactByIdController = async (req, res, next) => {
+export const getContactByIdController = async (req, res) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
   if (!contact) {
@@ -49,8 +49,7 @@ export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact(contactId);
   if (!contact) {
-    next(createHttpError(404, `Contact with id ${contactId} was not found`));
-    return;
+    throw createHttpError(404, `Contact with id ${contactId} was not found`);
   }
   res.status(204).send();
 };
@@ -61,8 +60,7 @@ export const upsterContactController = async (req, res, next) => {
     upsetr: true,
   });
   if (!result) {
-    next(createHttpError(404, `Contact with id ${contactId} was not found`));
-    return;
+    throw createHttpError(404, `Contact with id ${contactId} was not found`);
   }
   const status = result.isNew ? 201 : 200;
   res.status(status).json({
@@ -76,10 +74,9 @@ export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = updateContact(contactId, req.body);
   if (!result) {
-    next(createHttpError(404, `Contact with id ${contactId} was not found`));
-    return;
+    throw createHttpError(404, `Contact with id ${contactId} was not found`);
   }
-  res.json({
+  res.status(200).json({
     status: 200,
     message: `Successfully patched a contact!`,
     data: result.contact,

@@ -22,6 +22,6 @@ router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
 
 router.put('/contacts/:contactId', ctrlWrapper(upsterContactController));
 
-router.patch('contacts/:contactId', ctrlWrapper(patchContactController));
+router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
 
 export default router;

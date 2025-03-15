@@ -19,11 +19,11 @@ export const getContactsController = async (req, res) => {
     message: 'Successfully found contacts!',
     data: contacts,
   });
-  //   try {
+  // try {
 
-  //   } catch {
-  //     throw createHttpError(404, 'Contact not found');
-  //   }
+  // } catch {
+  //   throw createHttpError(404, 'Contact not found');
+  // }
 };
 
 export const getContactByIdController = async (req, res) => {

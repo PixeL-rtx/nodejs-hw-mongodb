@@ -8,7 +8,7 @@ export const errorHandler = (error, req, res, next) => {
       error: error,
     });
   }
-  res.status(500).json({
+  return qres.status(500).json({
     status: 500,
     message: 'Something went wrong',
     data: error.message,

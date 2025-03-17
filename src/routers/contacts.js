@@ -18,7 +18,11 @@ const router = Router();
 
 router.get('/contacts', ctrlWrapper(getContactsController));
 
-router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
+router.get(
+  '/contacts/:contactId',
+  isValidId,
+  ctrlWrapper(getContactByIdController),
+);
 
 router.post(
   '/contacts',

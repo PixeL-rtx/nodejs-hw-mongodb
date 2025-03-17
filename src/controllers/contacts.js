@@ -31,21 +31,19 @@ export const getContactsController = async (req, res) => {
   });
 };
 
-export const getContactByIdController = async (req, res, next) => {
+export const getContactByIdController = async (req, res) => {
   try {
     const { contactId } = req.params;
     const contact = await getContactById(contactId);
-    if (!contact) {
-      throw createHttpError(404, 'Contact not found');
-      //   return next(createHttpError(404, 'Contact not found'));
+    if (contact) {
+      res.json({
+        stattus: 200,
+        message: `Successfully found student with id ${contactId}!`,
+        data: contact,
+      });
     }
-    res.json({
-      stattus: 200,
-      message: `Successfully found student with id ${contactId}!`,
-      data: contact,
-    });
-  } catch (error) {
-    next(error);
+  } catch {
+    throw createHttpError(404, 'Contact not found');
   }
 };
 

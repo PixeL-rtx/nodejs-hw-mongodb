@@ -2,13 +2,13 @@ import { Schema, model } from 'mongoose';
 
 const sessionsSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'users' },
+    userId: { type: Schema.Types.ObjectId, ref: 'users', required: true },
     accessToken: { type: String, required: true },
     refreshToken: { type: String, required: true },
     accessTokenValidUntil: { type: Date, required: true },
     refreshTokenValidUntil: { type: Date, required: true },
   },
-  { timestamps: true, versionKej: false },
+  { timestamps: true, versionKey: false },
 );
 
-export const SessionCollection = model('sessions', sessionsSchema);
+export const SessionCollection = model('session', sessionsSchema);

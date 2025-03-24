@@ -17,4 +17,5 @@ usersSchema.methods.toJSON = function () {
   delete obj.password;
   return obj;
 };
+
 export const userCollection = model('users', usersSchema);

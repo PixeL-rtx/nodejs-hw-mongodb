@@ -17,6 +17,7 @@ import {
 
 import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 
@@ -28,22 +29,28 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 
 router.post(
   '/',
+
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(createContactsController),
 );
 
-router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
-
 router.put(
   '/:contactId',
+
   isValidId,
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(upsterContactController),
 );
 
+router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
+
 router.patch(
   '/:contactId',
+
   isValidId,
+  upload.single('photo'),
   validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );

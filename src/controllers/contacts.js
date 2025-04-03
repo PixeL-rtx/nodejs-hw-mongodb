@@ -55,7 +55,6 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const createContactsController = async (req, res) => {
-  const { contactId } = req.params;
   const { _id: userId } = req.user;
   const photo = req.file;
 
@@ -69,15 +68,11 @@ export const createContactsController = async (req, res) => {
     }
   }
 
-  const contact = await createContact(
-    contactId,
-    { ...req.body, photo: photoUrl },
-    userId,
-  );
+  const contact = await createContact({ ...req.body, userId, photo: photoUrl });
 
-  if (!contact) {
-    throw createHttpError(404, `Contact with id ${contactId} was not found`);
-  }
+  // if (!contact) {
+  //   throw createHttpError(404, `Contact with id ${contactId} was not found`);
+  // }
 
   res.status(201).json({
     status: 201,

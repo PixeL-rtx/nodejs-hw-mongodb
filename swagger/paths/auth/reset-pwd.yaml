@@ -43,10 +43,11 @@ responses:
               type: object
               properties: {}
     '401':
+      description: 'Token is expired or invalid.'
     $ref: '../../components/responses/401.yaml'
-    description: 'Token is expired or invalid.'
+
     '404':
-    $ref: '../../components/responses/404.yaml'
-    description: 'User not found'
+      $ref: '../../components/responses/404.yaml'
+
     '500':
-    $ref: '../../components/responses/500.yaml'
+      $ref: '../../components/responses/500.yaml'
